@@ -1,0 +1,5 @@
+CMD:
+
+```bash
+npm start
+```
