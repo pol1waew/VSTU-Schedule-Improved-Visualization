@@ -1,6 +1,9 @@
+import {Filters} from './components/Filters';
 import {Table} from './components/Table';
+import {FunctionalPanel} from './components/FunctionalPanel';
+import './styles/App.css'
 
-function App() {
+export function App() {
     const timeSlots = [
         '1-2',
         '3-4',
@@ -12,11 +15,12 @@ function App() {
     ]
 
     return (
-        <div>
-            <Table timeSlots={ timeSlots }/>
-            <Table timeSlots={ timeSlots }/>
+        <div class='main-container'>
+            <Filters />
+
+            <Table timeSlots={timeSlots} />
+
+            <FunctionalPanel />
         </div>
     );    
 }
-
-export default App;

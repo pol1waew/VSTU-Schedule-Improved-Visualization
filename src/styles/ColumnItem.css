@@ -1,0 +1,46 @@
+.column-item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100px;
+    width: 200px;
+}
+
+.column-item-header-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.column-item-footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.column-item-subject {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+}
+
+.column-item-holds-on-date {
+    font-size: 14px;
+    margin: 0;
+}
+
+.column-item-subject-kind {
+    font-size: 14px;
+    margin: 0;
+}
+
+.column-item-footer-left {
+    font-size: 16px;
+    margin: 0;
+}
+
+.column-item-footer-right {
+    font-size: 16px;
+    margin: 0;
+}

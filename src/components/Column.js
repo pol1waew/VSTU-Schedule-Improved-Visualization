@@ -2,11 +2,12 @@ import {useState, useRef} from 'react';
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import {ColumnFilter} from './ColumnFilter';
-import './Column.css';
+import {ColumnItem} from './ColumnItem';
+import '../styles/Column.css';
 
 export function Column(props) {
     const [filter, setFilter] = useState(null);
-    const headRef = useRef();
+    const buttonRef = useRef();
     const {
         attributes,
         listeners,
@@ -19,25 +20,64 @@ export function Column(props) {
         transition
     };
 
-    function createDestroyFilter() {
-        if (!filter) {
-            setFilter(
-                <ColumnFilter rect={headRef.current.getBoundingClientRect()}/>
-            );
-        }
-        else {
-            setFilter(
-                null
-            );
+    const testData = {
+        0: {
+            subject: 'НИР',
+            holds_on_date: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            left_data: ['Гилка В.В.', 'Литовкин Д.В.'],
+            right_data: ['В 902а', 'В 902б']
+        },
+        1:{
+            subject: 'СУПЕР ПУПЕР ДЛИННОЕ НАЗВАНИЕ ПРЕДМЕТА ДЛЯ ТЕСТИРОВАНИЯ ТОГО, КАК ТЕКСТ УМЕЩАЕТСЯ ВНУТРИ КЛЕТОЧКИ',
+            holds_on_date: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            left_data: ['Гилка В.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.'],
+            right_data: ['В 902а', 'В 902б']
+        },
+        2:{
+            subject: 'НИР',
+            holds_on_date: null,
+            kind: 'Лабораторная работа',
+            left_data: ['Гилка В.В.', 'Литовкин Д.В.'],
+            right_data: ['В 902а', 'В 902б', 'В 902б', 'В 902б', 'В 902б']
+        },
+        3:{
+            subject: 'НИР',
+            holds_on_date: null,
+            kind: null,
+            left_data: ['Гилка В.В.', 'Литовкин Д.В.'],
+            right_data: ['В 902а', 'В 902б']
+        },
+        4:{
+            subject: 'НИР',
+            holds_on_date: '12 декабря 2025 г.',
+            kind: null,
+            left_data: ['Гилка В.В.', 'Литовкин Д.В.'],
+            right_data: ['В 902а', 'В 902б']
+        },
+        5:{
+            subject: 'НИР',
+            holds_on_date: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            left_data: ['Литовкин Д.В.'],
+            right_data: ['В 902а', 'В 902б']
+        },
+        6:{
+            subject: 'НИР',
+            holds_on_date: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            left_data: ['Гилка В.В.', 'Литовкин Д.В.'],
+            right_data: ['В 902а']
         }
     }
 
     return (
-        <table ref={setNodeRef} style={style} >
+        <table ref={setNodeRef} style={style}>
             <thead>
                 <tr>
-                    <th ref={headRef} class='column-head'>
-                        <button onClick={createDestroyFilter}>
+                    <th class='column-head'>
+                        <button ref={buttonRef} onClick={createDestroyFilter}>
                             Литовкин Д.В.
                         </button>              
 
@@ -52,28 +92,30 @@ export function Column(props) {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>asdsadsadsadadsad</td>
-                </tr>
-                <tr>
-                    <td>asd</td>
-                </tr>
-                <tr>
-                    <td>asd</td>
-                </tr>
-                <tr>
-                    <td>asd</td>
-                </tr>
-                <tr>
-                    <td>asd</td>
-                </tr>
-                <tr>
-                    <td>asd</td>
-                </tr>
-                <tr>
-                    <td>asd</td>
-                </tr>
+                {
+                    Object.entries(testData).map(
+                        ([key, data]) => (
+                            <tr id={`column-body-row-${key}`}>
+                                <td><ColumnItem data={data} /></td>
+                            </tr>
+                        )
+                    )
+                }
+                
             </tbody>
         </table>
     );
+
+    function createDestroyFilter() {
+        if (!filter) {
+            setFilter(
+                <ColumnFilter rect={buttonRef.current.getBoundingClientRect()}/>
+            );
+        }
+        else {
+            setFilter(
+                null
+            );
+        }
+    }
 }
