@@ -1,5 +1,18 @@
+.column-table {
+    z-index: 2;
+}
+
+.column-head-container {
+    position: sticky;
+    top: 8px;
+    height: 40px;
+    background-color: white;
+}
+
 .column-head {
-    border: none;
+    padding: 0;
+    border-left: none;
+    border-right: none;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

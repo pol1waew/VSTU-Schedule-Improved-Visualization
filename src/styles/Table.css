@@ -1,7 +1,7 @@
 .table-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: start;
     flex: 1;
 }
 
@@ -15,20 +15,29 @@ th, td {
     border: 1px solid black;
 }
 
-.table-time-slot-th {
+.table-time-slot {
     height: 90px;
 }
 
-.table-time-slot-title {
+.table-titles-container {
     position: sticky;
     top: 8px;
+    z-index: 1;
+    background-color: white;
+}
+
+.table-time-slot-title {
     height: 40px;
 }
 
 .table-add-column-button-container {
     position: sticky;
     top: 8px;
-    background-color: gray;
+    height: 40px;
+}
+
+.table-add-column-button {
+    padding: 8px;
 }
 
 .table-week-day {

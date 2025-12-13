@@ -27,6 +27,11 @@ export function Filters() {
                 <option value='3'>Практика</option>
             </select>
 
+            <select class='schedule-status'>
+                <option value='1'>Активное расписание</option>
+                <option value='2'>Архивное расписание</option>
+            </select>
+
             <label>
                 <input type='checkbox' />
                 Показывать календарь

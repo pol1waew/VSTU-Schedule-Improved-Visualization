@@ -65,51 +65,123 @@ export function Table({data}) {
         }
     }
 
+
+
+    const testData = [
+        {
+            subject: null,
+            holdsOnDate: null,
+            kind: null,
+            leftData: null,
+            rightData: null
+        },
+        {},
+        {
+            subject: 'ОСНОВЫ ПРОГРАММИРОВАНИЯ',
+            holdsOnDate: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б']
+        },
+        {
+            subject: 'СУПЕР ПУПЕР ДЛИННОЕ НАЗВАНИЕ ПРЕДМЕТА ДЛЯ ТЕСТИРОВАНИЯ ТОГО, КАК ТЕКСТ УМЕЩАЕТСЯ ВНУТРИ КЛЕТОЧКИ',
+            holdsOnDate: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.'],
+            rightData: ['В 908', 'В 902б']
+        },
+        {
+            subject: 'НИР',
+            holdsOnDate: null,
+            kind: 'Лабораторная работа',
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б', 'В 902б', 'В 902б', 'В 902б']
+        },
+        {
+            subject: 'БАЗЫ ДАННЫХ',
+            holdsOnDate: null,
+            kind: null,
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['А 301', 'Б 21']
+        },
+        {
+            subject: 'ХИМИЯ',
+            holdsOnDate: '12 декабря 2025 г.',
+            kind: null,
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б']
+        },
+        {
+            subject: 'НАЧ. ГРАФИКА',
+            holdsOnDate: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            leftData: ['Литовкин Д.В.'],
+            rightData: ['В 908', 'В 902а', 'В 902б']
+        },
+        {
+            subject: 'МАТ. АН.',
+            holdsOnDate: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['ГУК 100']
+        }
+    ]
+
+    function createData() {
+        let newData = [];
+
+        while (newData.length < data.weekDays.length * data.timeSlots.length) {
+            newData.push(testData[Math.floor(Math.random() * testData.length)]);
+        }
+
+        return newData;
+    }
+
+    
+
     return (
-        <DndContext sensors={sensors} collisionDetection={rectIntersection} onDragEnd={handleDragEnd}>
-            <div class='table-container'>
-                <table>
-                    <tr>
-                        <th class='table-time-slot-title' colspan='2'>Учебный час</th>
-                        <SortableContext items={columns} strategy={horizontalListSortingStrategy}>
-                            {
-                                columns.map(
-                                    id => 
-                                        <th rowspan={data.weekDays.length * data.timeSlots.length + 1}>
-                                            <Column key={id} id={id} />
-                                        </th>
+        <div class='table-container'>
+            <table>
+                <tr class='table-titles-container'>
+                    <th class='table-week-day-title'>День недели</th>
+                    <th class='table-time-slot-title'>Уч. час</th>
+                </tr>
+                {
+                    data.weekDays.map(
+                        weekDay => (
+                            data.timeSlots.map(
+                                (timeSlot, index) => (
+                                    <tr>
+                                        {
+                                            index === 0 ?
+                                            (
+                                                <th rowspan={data.timeSlots.length}>
+                                                    <h1 class='table-week-day'>{weekDay}</h1>
+                                                </th>
+                                            ) : null
+                                        }
+                                        <th class='table-time-slot'>{timeSlot}</th>
+                                    </tr>
                                 )
-                            }
-                        </SortableContext>
-                        <th>
-                            <div class='table-add-column-button-container'>
-                                <button onClick={addColumn}>+добавить</button>
-                            </div>
-                        </th>
-                    </tr>
+                            ) 
+                        )
+                    )
+                }
+            </table>
+
+            <DndContext autoScroll={false} sensors={sensors} collisionDetection={rectIntersection} onDragEnd={handleDragEnd}>
+                <SortableContext items={columns} strategy={horizontalListSortingStrategy}>
                     {
-                        data.weekDays.map(
-                            weekDay => (
-                                data.timeSlots.map(
-                                    (timeSlot, index) => (
-                                        <tr>
-                                            {
-                                                index === 0 ?
-                                                (
-                                                    <th rowspan={data.timeSlots.length}>
-                                                        <h1 class='table-week-day'>{weekDay}</h1>
-                                                    </th>
-                                                ) : null
-                                            }
-                                            <th class='table-time-slot-th'>{timeSlot}</th>
-                                        </tr>
-                                    )
-                                ) 
-                            )
+                        columns.map(
+                            id => <Column data={createData()} key={id} id={id} />
                         )
                     }
-                </table>
+                </SortableContext>
+            </DndContext>
+
+            <div class='table-add-column-button-container'>
+                <button class='table-add-column-button' onClick={addColumn}>+добавить</button>
             </div>
-        </DndContext>
+        </div>
     );
 }
