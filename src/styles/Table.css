@@ -1,7 +1,6 @@
 .table-container {
     display: flex;
     flex-direction: row;
-    align-items: start;
     flex: 1;
 }
 
@@ -17,11 +16,12 @@ th, td {
 
 .table-time-slot {
     height: 90px;
+    min-width: 50px;
 }
 
 .table-titles-container {
     position: sticky;
-    top: 8px;
+    top: 0px;
     z-index: 1;
     background-color: white;
 }
@@ -30,17 +30,27 @@ th, td {
     height: 40px;
 }
 
-.table-add-column-button-container {
-    position: sticky;
-    top: 8px;
-    height: 40px;
-}
-
 .table-add-column-button {
+    height: 40px;
     padding: 8px;
 }
 
 .table-week-day {
     writing-mode: vertical-rl; 
     transform: scale(-1, -1);
+}
+
+.table-overflow-container {
+    height: 98vh;
+    overflow: hidden;
+}
+
+.table-columns-container {
+    height: 98vh;
+    width: 70vw;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    overflow: scroll;
+    scrollbar-width: none;
 }

@@ -4,7 +4,7 @@
 
 .column-head-container {
     position: sticky;
-    top: 8px;
+    top: 0px;
     height: 40px;
     background-color: white;
 }

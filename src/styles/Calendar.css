@@ -1,0 +1,8 @@
+.calendar-table {
+    width: 100%;
+}
+
+.calendar-month-name {
+    writing-mode: vertical-rl; 
+    transform: scale(-1, -1);
+}
