@@ -13,12 +13,22 @@ export function App() {
         '11-12',
         '13-14'
     ]
+    const weekDays = [
+        'Понедельник',
+        'Вторник',
+        'Среда'
+    ]
+
+    const data = {
+        timeSlots: timeSlots,
+        weekDays: weekDays
+    }
 
     return (
         <div class='main-container'>
             <Filters />
 
-            <Table timeSlots={timeSlots} />
+            <Table data={data} />
 
             <FunctionalPanel />
         </div>

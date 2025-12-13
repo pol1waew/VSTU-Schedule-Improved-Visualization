@@ -20,60 +20,80 @@ export function Column(props) {
         transition
     };
 
-    const testData = {
-        0: {
+    const testData = [
+        {
             subject: 'НИР',
-            holds_on_date: '12 декабря 2025 г.',
+            holdsOnDate: '12 декабря 2025 г.',
             kind: 'Лабораторная работа',
-            left_data: ['Гилка В.В.', 'Литовкин Д.В.'],
-            right_data: ['В 902а', 'В 902б']
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б']
         },
-        1:{
+        {},
+        {
             subject: 'СУПЕР ПУПЕР ДЛИННОЕ НАЗВАНИЕ ПРЕДМЕТА ДЛЯ ТЕСТИРОВАНИЯ ТОГО, КАК ТЕКСТ УМЕЩАЕТСЯ ВНУТРИ КЛЕТОЧКИ',
-            holds_on_date: '12 декабря 2025 г.',
+            holdsOnDate: '12 декабря 2025 г.',
             kind: 'Лабораторная работа',
-            left_data: ['Гилка В.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.'],
-            right_data: ['В 902а', 'В 902б']
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б']
         },
-        2:{
+        {},
+        {
             subject: 'НИР',
-            holds_on_date: null,
+            holdsOnDate: null,
             kind: 'Лабораторная работа',
-            left_data: ['Гилка В.В.', 'Литовкин Д.В.'],
-            right_data: ['В 902а', 'В 902б', 'В 902б', 'В 902б', 'В 902б']
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б', 'В 902б', 'В 902б', 'В 902б']
         },
-        3:{
+        {
             subject: 'НИР',
-            holds_on_date: null,
+            holdsOnDate: null,
             kind: null,
-            left_data: ['Гилка В.В.', 'Литовкин Д.В.'],
-            right_data: ['В 902а', 'В 902б']
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б']
         },
-        4:{
+        {
             subject: 'НИР',
-            holds_on_date: '12 декабря 2025 г.',
+            holdsOnDate: '12 декабря 2025 г.',
             kind: null,
-            left_data: ['Гилка В.В.', 'Литовкин Д.В.'],
-            right_data: ['В 902а', 'В 902б']
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б']
         },
-        5:{
+        {},
+        {
             subject: 'НИР',
-            holds_on_date: '12 декабря 2025 г.',
+            holdsOnDate: '12 декабря 2025 г.',
             kind: 'Лабораторная работа',
-            left_data: ['Литовкин Д.В.'],
-            right_data: ['В 902а', 'В 902б']
+            leftData: ['Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б']
         },
-        6:{
+        {},
+        {
             subject: 'НИР',
-            holds_on_date: '12 декабря 2025 г.',
+            holdsOnDate: '12 декабря 2025 г.',
             kind: 'Лабораторная работа',
-            left_data: ['Гилка В.В.', 'Литовкин Д.В.'],
-            right_data: ['В 902а']
-        }
-    }
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а']
+        },
+        {
+            subject: null,
+            holdsOnDate: null,
+            kind: null,
+            leftData: null,
+            rightData: null
+        },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+    ]
 
     return (
-        <table ref={setNodeRef} style={style}>
+        <table class='column-table' ref={setNodeRef} style={style}>
             <thead>
                 <tr>
                     <th class='column-head'>
@@ -93,9 +113,9 @@ export function Column(props) {
             </thead>
             <tbody>
                 {
-                    Object.entries(testData).map(
-                        ([key, data]) => (
-                            <tr id={`column-body-row-${key}`}>
+                    testData.map(
+                        (data, index) => (
+                            <tr id={`column-body-row-${index}`}>
                                 <td><ColumnItem data={data} /></td>
                             </tr>
                         )

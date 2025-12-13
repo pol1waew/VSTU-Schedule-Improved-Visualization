@@ -1,4 +1,7 @@
 .table-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     flex: 1;
 }
 
@@ -12,6 +15,23 @@ th, td {
     border: 1px solid black;
 }
 
+.table-time-slot-th {
+    height: 90px;
+}
+
 .table-time-slot-title {
+    position: sticky;
+    top: 8px;
     height: 40px;
+}
+
+.table-add-column-button-container {
+    position: sticky;
+    top: 8px;
+    background-color: gray;
+}
+
+.table-week-day {
+    writing-mode: vertical-rl; 
+    transform: scale(-1, -1);
 }

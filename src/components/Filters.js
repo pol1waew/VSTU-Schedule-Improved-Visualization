@@ -12,6 +12,7 @@ export function Filters() {
                 <option value='4'>На следующую неделю</option>
                 <option value='5'>На дату</option>
                 <option value='6'>На диапазон дат</option>
+                <option value='7'>На день недели</option>
             </select>
 
             <select class='filters-subject'>

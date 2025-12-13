@@ -14,7 +14,9 @@ import {
 import {Column} from './Column';
 import '../styles/Table.css';
 
-export function Table({timeSlots}) {
+
+
+export function Table({data}) {
     const [lastIdNumber, setIdNumber] = useState(0);
     const [columns, setColumns] = useState([]);
     const sensors = useSensors(
@@ -68,27 +70,41 @@ export function Table({timeSlots}) {
             <div class='table-container'>
                 <table>
                     <tr>
-                        <th class='table-time-slot-title'>Учебный час</th>
+                        <th class='table-time-slot-title' colspan='2'>Учебный час</th>
                         <SortableContext items={columns} strategy={horizontalListSortingStrategy}>
                             {
                                 columns.map(
                                     id => 
-                                        <th rowspan={timeSlots.length + 1}>
+                                        <th rowspan={data.weekDays.length * data.timeSlots.length + 1}>
                                             <Column key={id} id={id} />
                                         </th>
                                 )
                             }
                         </SortableContext>
-                        <th rowspan={timeSlots.length + 1}>
-                            <button onClick={addColumn}>+добавить</button>
+                        <th>
+                            <div class='table-add-column-button-container'>
+                                <button onClick={addColumn}>+добавить</button>
+                            </div>
                         </th>
                     </tr>
                     {
-                        timeSlots.map(
-                            (timeSlot, index) => (
-                                <tr>
-                                    <th style={getRowVerticalSize(index)}>{timeSlot}</th>
-                                </tr>
+                        data.weekDays.map(
+                            weekDay => (
+                                data.timeSlots.map(
+                                    (timeSlot, index) => (
+                                        <tr>
+                                            {
+                                                index === 0 ?
+                                                (
+                                                    <th rowspan={data.timeSlots.length}>
+                                                        <h1 class='table-week-day'>{weekDay}</h1>
+                                                    </th>
+                                                ) : null
+                                            }
+                                            <th class='table-time-slot-th'>{timeSlot}</th>
+                                        </tr>
+                                    )
+                                ) 
                             )
                         )
                     }
@@ -96,8 +112,4 @@ export function Table({timeSlots}) {
             </div>
         </DndContext>
     );
-
-    function getRowVerticalSize(index) {
-        console.log(index);
-    }
 }
