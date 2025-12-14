@@ -16,8 +16,8 @@ import {Calendar} from './Calendar';
 import '../styles/Table.css';
 
 export function Table({data, getDataFunc, removeDataFunc}) {
-    const tableOverflowContainer = useRef(null);
-    const tableColumnsContainer = useRef(null);
+    const leftSideContainer = useRef(null);
+    const columnsContainer = useRef(null);
     const [lastIdNumber, setIdNumber] = useState(0);
     const [columns, setColumns] = useState([]);
     const sensors = useSensors(
@@ -73,59 +73,49 @@ export function Table({data, getDataFunc, removeDataFunc}) {
     }
 
     const syncScroll = () => {
-        tableOverflowContainer.current.scrollTop = tableColumnsContainer.current.scrollTop;
+        leftSideContainer.current.scrollTop = columnsContainer.current.scrollTop;
     }
 
     return (
         <div class='table-container'>
-            <div class='table-overflow-container' ref={tableOverflowContainer}>
-                <table>
-                    <tr class='table-titles-container'>
-                        <th class='table-week-day-title'>День недели</th>
-                        <th class='table-calendar-title'>Календарь</th>
-                        <th class='table-time-slot-title'>Уч. час</th>
-                    </tr>
-                    {
-                        data.weekDays.map(
-                            (weekDay, dayindex) => (
-                                <>
+            <div class='table-left-side-container' ref={leftSideContainer}>
+                <div class='table-titles-container'>
+                    <div class='table-cell table-week-day-title'>День недели</div>
+                    <div class='table-cell table-calendar-title'>Календарь</div>
+                    <div class='table-cell table-time-slot-title'>Уч. час</div>
+                </div>
+
+                {
+                    data.weekDays.map(
+                        (weekDay, dayIndex) => (
+                            <div class='table-left-side-content-container' style={
+                                dayIndex !== data.weekDays.length - 1 ?
+                                ({marginBottom: '30px'}) : null
+                            }>
+                                <div class='table-week-day-container'>
+                                    <h2 class='table-cell table-week-day'>{weekDay}</h2>
+                                </div>
+
+                                <div class='table-cell table-calendar-container'>
+                                    <Calendar months={data.monthNames} days={data.monthDays[dayIndex]} />
+                                </div>
+
+                                <div class='table-time-slots-container'>
                                     {
                                         data.timeSlots.map(
-                                            (timeSlot, timeSlotIndex) => (
-                                                <tr>
-                                                    {
-                                                        timeSlotIndex === 0 ?
-                                                        (
-                                                            <th rowspan={data.timeSlots.length}>
-                                                                <h1 class='table-week-day'>{weekDay}</h1>
-                                                            </th>
-                                                        ) : null
-                                                    }
-                                                    {
-                                                        timeSlotIndex === 0 ?
-                                                        (
-                                                            <th rowspan={data.timeSlots.length}>
-                                                                <Calendar months={data.monthNames} days={data.monthDays[dayindex]} />
-                                                            </th>
-                                                        ) : null
-                                                    }
-                                                    <th class='table-time-slot'>{timeSlot}</th>
-                                                </tr>
+                                            timeSlot => (
+                                                <div class='table-cell table-time-slot-container'>{timeSlot}</div>
                                             )
-                                        ) 
+                                        )
                                     }
-                                    {
-                                        dayindex !== data.weekDays.length - 1 ? 
-                                        (<tr><td colspan='3' style={{height: '30px'}}></td></tr>) : null
-                                    }
-                                </>
-                            )
+                                </div>
+                            </div>
                         )
-                    }
-                </table>
+                    )
+                }
             </div>
 
-            <div class='table-columns-container' ref={tableColumnsContainer} onScroll={syncScroll}>
+            <div class='table-columns-container' ref={columnsContainer} onScroll={syncScroll}>
                 <DndContext autoScroll={false} sensors={sensors} collisionDetection={rectIntersection} onDragEnd={handleDragEnd}>
                     <SortableContext items={columns} strategy={horizontalListSortingStrategy}>
                         {
@@ -139,5 +129,6 @@ export function Table({data, getDataFunc, removeDataFunc}) {
             
             <button class='table-add-column-button' onClick={addColumn}>+добавить</button>
         </div>
+
     );
 }

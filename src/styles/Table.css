@@ -1,38 +1,34 @@
 .table-container {
     display: flex;
     flex-direction: row;
-    flex: 1;
+    align-items: start;
 }
 
-table {
-    border-collapse: collapse;
+
+.table-cell {
     border: 1px solid black;
     background-color: white;
 }
 
-th, td {
-    border: 1px solid black;
-}
-
-.table-time-slot {
-    height: 90px;
-    min-width: 50px;
+.table-left-side-container {
+    display: flex;
+    flex-direction: column;
+    height: 98vh;
+    overflow: hidden;
 }
 
 .table-titles-container {
     position: sticky;
     top: 0px;
     z-index: 1;
-    background-color: white;
+    display: grid;
+    grid-template-columns: 100px 1fr 100px;
+    min-height: 40px;
 }
 
-.table-time-slot-title {
-    height: 40px;
-}
-
-.table-add-column-button {
-    height: 40px;
-    padding: 8px;
+.table-left-side-content-container {
+    display: grid;
+    grid-template-columns: 100px 1fr 100px;
 }
 
 .table-week-day {
@@ -40,10 +36,16 @@ th, td {
     transform: scale(-1, -1);
 }
 
-.table-overflow-container {
-    height: 98vh;
-    overflow: hidden;
+.table-time-slots-container {
+    display: flex;
+    flex-direction: column;
 }
+
+.table-time-slot-container {
+    height: 90px;
+}
+
+
 
 .table-columns-container {
     height: 98vh;
@@ -53,4 +55,11 @@ th, td {
     align-items: start;
     overflow: scroll;
     scrollbar-width: none;
+}
+
+
+
+.table-add-column-button {
+    height: 40px;
+    padding: 8px;
 }
