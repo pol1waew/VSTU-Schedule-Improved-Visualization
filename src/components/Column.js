@@ -39,10 +39,22 @@ export function Column(props) {
             </tr>
             {
                 props.data.map(
-                    (data, index) => (
-                        <tr id={`column-body-row-${index}`}>
-                            <td><ColumnItem data={data} /></td>
-                        </tr>
+                    (week, outerIndex) => (
+                        <>
+                            {
+                                week.map(
+                                    (day, innerIndex) => (
+                                        <tr id={`column-body-row-${outerIndex * innerIndex}`}>
+                                            <td><ColumnItem data={day} /></td>
+                                        </tr>
+                                    )
+                                )
+                            }
+                            {
+                                outerIndex !== props.data.length - 1 ? 
+                                (<tr><td colspan='3' style={{height: '30px'}}></td></tr>) : null
+                            }
+                        </>
                     )
                 )
             }

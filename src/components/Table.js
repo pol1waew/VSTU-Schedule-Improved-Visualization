@@ -15,7 +15,7 @@ import {Column} from './Column';
 import {Calendar} from './Calendar';
 import '../styles/Table.css';
 
-export function Table({data}) {
+export function Table({data, getDataFunc, removeDataFunc}) {
     const tableOverflowContainer = useRef(null);
     const tableColumnsContainer = useRef(null);
     const [lastIdNumber, setIdNumber] = useState(0);
@@ -34,16 +34,22 @@ export function Table({data}) {
     );
     
     const addColumn = () => {
+        const newColumnId = `column-${lastIdNumber}`;
+
         setColumns([
             ...columns, 
-           `column-${lastIdNumber}`
+           newColumnId
         ]);
 
+        getDataFunc(newColumnId);
+        
         // updates with one iteration delay
         setIdNumber(lastIdNumber + 1);
     };
 
     const removeColumn = (id) => {
+        removeDataFunc(id);
+
         setColumns(
             columns.filter(column => column !== id)
         );
@@ -70,83 +76,6 @@ export function Table({data}) {
         tableOverflowContainer.current.scrollTop = tableColumnsContainer.current.scrollTop;
     }
 
-
-
-    const columnRefData = [
-        {
-            subject: null,
-            holdsOnDate: null,
-            kind: null,
-            leftData: null,
-            rightData: null
-        },
-        {},
-        {
-            subject: 'ОСНОВЫ ПРОГРАММИРОВАНИЯ',
-            holdsOnDate: '12 декабря 2025 г.',
-            kind: 'Лабораторная работа',
-            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
-            rightData: ['В 902а', 'В 902б']
-        },
-        {
-            subject: 'СУПЕР ПУПЕР ДЛИННОЕ НАЗВАНИЕ ПРЕДМЕТА ДЛЯ ТЕСТИРОВАНИЯ ТОГО, КАК ТЕКСТ УМЕЩАЕТСЯ ВНУТРИ КЛЕТОЧКИ',
-            holdsOnDate: '12 декабря 2025 г.',
-            kind: 'Лабораторная работа',
-            leftData: ['Гилка В.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.'],
-            rightData: ['В 908', 'В 902б']
-        },
-        {
-            subject: 'НИР',
-            holdsOnDate: null,
-            kind: 'Лабораторная работа',
-            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
-            rightData: ['В 902а', 'В 902б', 'В 902б', 'В 902б', 'В 902б']
-        },
-        {
-            subject: 'БАЗЫ ДАННЫХ',
-            holdsOnDate: null,
-            kind: null,
-            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
-            rightData: ['А 301', 'Б 21']
-        },
-        {
-            subject: 'ХИМИЯ',
-            holdsOnDate: '12 декабря 2025 г.',
-            kind: null,
-            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
-            rightData: ['В 902а', 'В 902б']
-        },
-        {
-            subject: 'НАЧ. ГРАФИКА',
-            holdsOnDate: '12 декабря 2025 г.',
-            kind: 'Лабораторная работа',
-            leftData: ['Литовкин Д.В.'],
-            rightData: ['В 908', 'В 902а', 'В 902б']
-        },
-        {
-            subject: 'МАТ. АН.',
-            holdsOnDate: '12 декабря 2025 г.',
-            kind: 'Лабораторная работа',
-            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
-            rightData: ['ГУК 100']
-        }
-    ]
-
-    function createData() {
-        let newData = [];
-
-        while (newData.length < data.weekDays.length * data.timeSlots.length) {
-            newData.push(columnRefData[Math.floor(Math.random() * columnRefData.length)]);
-        }
-
-        return newData;
-    }
-
-    
-    
-
-
-
     return (
         <div class='table-container'>
             <div class='table-overflow-container' ref={tableOverflowContainer}>
@@ -159,29 +88,37 @@ export function Table({data}) {
                     {
                         data.weekDays.map(
                             (weekDay, dayindex) => (
-                                data.timeSlots.map(
-                                    (timeSlot, timeSlotIndex) => (
-                                        <tr>
-                                            {
-                                                timeSlotIndex === 0 ?
-                                                (
-                                                    <th rowspan={data.timeSlots.length}>
-                                                        <h1 class='table-week-day'>{weekDay}</h1>
-                                                    </th>
-                                                ) : null
-                                            }
-                                            {
-                                                timeSlotIndex === 0 ?
-                                                (
-                                                    <th rowspan={data.timeSlots.length}>
-                                                        <Calendar months={data.monthNames} days={data.monthDays[dayindex]} />
-                                                    </th>
-                                                ) : null
-                                            }
-                                            <th class='table-time-slot'>{timeSlot}</th>
-                                        </tr>
-                                    )
-                                ) 
+                                <>
+                                    {
+                                        data.timeSlots.map(
+                                            (timeSlot, timeSlotIndex) => (
+                                                <tr>
+                                                    {
+                                                        timeSlotIndex === 0 ?
+                                                        (
+                                                            <th rowspan={data.timeSlots.length}>
+                                                                <h1 class='table-week-day'>{weekDay}</h1>
+                                                            </th>
+                                                        ) : null
+                                                    }
+                                                    {
+                                                        timeSlotIndex === 0 ?
+                                                        (
+                                                            <th rowspan={data.timeSlots.length}>
+                                                                <Calendar months={data.monthNames} days={data.monthDays[dayindex]} />
+                                                            </th>
+                                                        ) : null
+                                                    }
+                                                    <th class='table-time-slot'>{timeSlot}</th>
+                                                </tr>
+                                            )
+                                        ) 
+                                    }
+                                    {
+                                        dayindex !== data.weekDays.length - 1 ? 
+                                        (<tr><td colspan='3' style={{height: '30px'}}></td></tr>) : null
+                                    }
+                                </>
                             )
                         )
                     }
@@ -193,7 +130,7 @@ export function Table({data}) {
                     <SortableContext items={columns} strategy={horizontalListSortingStrategy}>
                         {
                             columns.map(
-                                id => <Column data={createData()} key={id} id={id} />
+                                id => <Column data={data.columnData[id]} key={id} id={id} />
                             )
                         }
                     </SortableContext>

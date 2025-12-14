@@ -43,19 +43,102 @@ export function App() {
             ['', '26', '']
         ]
     }
+    let columnData = {}
+
+
+    const columnRefData = [
+        {
+            subject: null,
+            holdsOnDate: null,
+            kind: null,
+            leftData: null,
+            rightData: null
+        },
+        {},
+        {
+            subject: 'ОСНОВЫ ПРОГРАММИРОВАНИЯ',
+            holdsOnDate: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б']
+        },
+        {
+            subject: 'СУПЕР ПУПЕР ДЛИННОЕ НАЗВАНИЕ ПРЕДМЕТА ДЛЯ ТЕСТИРОВАНИЯ ТОГО, КАК ТЕКСТ УМЕЩАЕТСЯ ВНУТРИ КЛЕТОЧКИ',
+            holdsOnDate: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.', 'Литовкин Д.В.'],
+            rightData: ['В 908', 'В 902б']
+        },
+        {
+            subject: 'НИР',
+            holdsOnDate: null,
+            kind: 'Лабораторная работа',
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б', 'В 902б', 'В 902б', 'В 902б']
+        },
+        {
+            subject: 'БАЗЫ ДАННЫХ',
+            holdsOnDate: null,
+            kind: null,
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['А 301', 'Б 21']
+        },
+        {
+            subject: 'ХИМИЯ',
+            holdsOnDate: '12 декабря 2025 г.',
+            kind: null,
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['В 902а', 'В 902б']
+        },
+        {
+            subject: 'НАЧ. ГРАФИКА',
+            holdsOnDate: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            leftData: ['Литовкин Д.В.'],
+            rightData: ['В 908', 'В 902а', 'В 902б']
+        },
+        {
+            subject: 'МАТ. АН.',
+            holdsOnDate: '12 декабря 2025 г.',
+            kind: 'Лабораторная работа',
+            leftData: ['Гилка В.В.', 'Литовкин Д.В.'],
+            rightData: ['ГУК 100']
+        }
+    ]
+
+    const getData = id => {
+        let weekData = [];
+
+        for (let i = 0; i < weekDays.length; i++) {
+            let dayData = [];
+
+            for (let k = 0; k < timeSlots.length; k++) {
+                dayData.push(columnRefData[Math.floor(Math.random() * columnRefData.length)]);
+            }
+
+            weekData.push(dayData);
+        }
+
+        columnData[id] = weekData;
+    }
+
+    const removeData = id => {
+        delete columnData[id];
+    }
 
     const data = {
         weekDays: weekDays,
         monthDays: monthDays,
         monthNames: monthNames,
-        timeSlots: timeSlots
+        timeSlots: timeSlots,
+        columnData: columnData
     }
 
     return (
         <div class='main-container'>
             <Filters />
 
-            <Table data={data} />
+            <Table data={data} getDataFunc={getData} removeDataFunc={removeData} />
 
             <FunctionalPanel />
         </div>
