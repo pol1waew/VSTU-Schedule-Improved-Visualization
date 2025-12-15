@@ -2,8 +2,7 @@ import '../styles/ColumnFilter.css'
 
 export function ColumnFilters({rect}) {
     const style = {
-        marginTop: rect.height,
-        marginLeft: rect.width / 2
+        marginTop: rect.height
     };
 
     return (

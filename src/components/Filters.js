@@ -15,6 +15,11 @@ export function Filters() {
                 <option value='7'>На день недели</option>
             </select>
 
+            <select class='filters-time-slot'>
+                <option value='1'>На учебный час</option>
+                <option value='2'>На диапазон уч. часов</option>
+            </select>
+
             <select class='filters-subject'>
                 <option value='1'>НИР</option>
                 <option value='2'>Базы данных</option>
@@ -35,6 +40,11 @@ export function Filters() {
             <label>
                 <input type='checkbox' />
                 Показывать календарь
+            </label>
+
+            <label>
+                <input type='checkbox' />
+                Растягивать календарь
             </label>
             
             <button>Сбросить фильтры</button>

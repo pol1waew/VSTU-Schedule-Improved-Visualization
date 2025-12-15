@@ -20,20 +20,61 @@
 .table-titles-container {
     position: sticky;
     top: 0px;
-    z-index: 1;
+    z-index: 2;
     display: grid;
-    grid-template-columns: 100px 1fr 100px;
-    min-height: 40px;
+    grid-template-columns: 1fr 100px;
+    min-height: 80px;
+    max-height: 80px;
+}
+
+.table-calendar-title-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.table-calendar-month-name {
+    width: 20px;
+    writing-mode: vertical-rl; 
+    transform: scale(-1, -1);
 }
 
 .table-left-side-content-container {
-    display: grid;
-    grid-template-columns: 100px 1fr 100px;
+    display: flex;
+    flex-direction: column;
 }
 
-.table-week-day {
-    writing-mode: vertical-rl; 
-    transform: scale(-1, -1);
+.table-week-day-container {
+    display: flex;
+    position: sticky;
+    top: 80px;
+    z-index: 1;
+    background-color: white;
+    align-items: center;
+    font-size: 20px;
+    min-height: 30px;
+    max-height: 30px;
+}
+
+.table-calendar-time-slots-container {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+}
+
+.table-calendar-container {
+    display: flex;
+    min-height: 92px;
+    max-height: 0px;
+    /*max-height: fit-content;*/
+}
+
+.table-calendar {
+    border-collapse: collapse;
+    flex: 1;
+}
+
+.table-calendar td {
+    border: 1px solid black;
+    max-width: 0px;
 }
 
 .table-time-slots-container {

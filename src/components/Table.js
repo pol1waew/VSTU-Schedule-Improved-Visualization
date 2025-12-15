@@ -12,7 +12,6 @@ import {
     horizontalListSortingStrategy
 } from '@dnd-kit/sortable';
 import {Column} from './Column';
-import {Calendar} from './Calendar';
 import '../styles/Table.css';
 
 export function Table({data, getDataFunc, removeDataFunc}) {
@@ -78,36 +77,56 @@ export function Table({data, getDataFunc, removeDataFunc}) {
 
     return (
         <div class='table-container'>
+            <button class='table-add-column-button' onClick={addColumn}>+добавить</button>
+
             <div class='table-left-side-container' ref={leftSideContainer}>
                 <div class='table-titles-container'>
-                    <div class='table-cell table-week-day-title'>День недели</div>
-                    <div class='table-cell table-calendar-title'>Календарь</div>
+                    <div class='table-calendar-title-container'>
+                        {
+                            data.monthNames.map(
+                                month => <div class='table-cell table-calendar-month-name'><b>{month}</b></div>
+                            )
+                        }
+                    </div>
                     <div class='table-cell table-time-slot-title'>Уч. час</div>
                 </div>
 
                 {
                     data.weekDays.map(
                         (weekDay, dayIndex) => (
-                            <div class='table-left-side-content-container' style={
-                                dayIndex !== data.weekDays.length - 1 ?
-                                ({marginBottom: '30px'}) : null
-                            }>
+                            <div class='table-left-side-content-container'>
                                 <div class='table-week-day-container'>
-                                    <h2 class='table-cell table-week-day'>{weekDay}</h2>
+                                    <b>{weekDay}</b>
                                 </div>
 
-                                <div class='table-cell table-calendar-container'>
-                                    <Calendar months={data.monthNames} days={data.monthDays[dayIndex]} />
-                                </div>
+                                <div class='table-calendar-time-slots-container'>
+                                    <div class='table-calendar-container'>
+                                        <table class='table-calendar'>
+                                            {
+                                                data.monthDays[dayIndex].map(
+                                                    row => (
+                                                        <tr>
+                                                            {
+                                                                row.map(
+                                                                    day => <td>{day}</td>
+                                                                )
+                                                            }
+                                                        </tr>
+                                                    )
+                                                )
+                                            }
+                                        </table>
+                                    </div>
 
-                                <div class='table-time-slots-container'>
-                                    {
-                                        data.timeSlots.map(
-                                            timeSlot => (
-                                                <div class='table-cell table-time-slot-container'>{timeSlot}</div>
+                                    <div class='table-time-slots-container'>
+                                        {
+                                            data.timeSlots[dayIndex].map(
+                                                timeSlot => (
+                                                    <div class='table-cell table-time-slot-container'>{timeSlot}</div>
+                                                )
                                             )
-                                        )
-                                    }
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         )
@@ -126,8 +145,6 @@ export function Table({data, getDataFunc, removeDataFunc}) {
                     </SortableContext>
                 </DndContext>
             </div>
-            
-            <button class='table-add-column-button' onClick={addColumn}>+добавить</button>
         </div>
 
     );

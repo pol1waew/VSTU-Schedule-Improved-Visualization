@@ -44,8 +44,7 @@ export function Column(props) {
                             week.map(
                                 (day, innerIndex) => (
                                     <div class='column-row-container' style={
-                                            innerIndex === week.length - 1 && outerIndex !== props.data.length - 1 ?
-                                            ({marginBottom: '30px'}) : null
+                                            innerIndex === 0 ? ({marginTop: '30px'}) : null
                                         }>
                                         <ColumnItem data={day} id={`column-row-${outerIndex * innerIndex}`} />
                                     </div>
