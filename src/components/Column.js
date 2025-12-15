@@ -20,7 +20,6 @@ export function Column(props) {
         transition
     };
 
-    
     return (
         <div class='column-container' ref={setNodeRef} style={style}>
             <div class='column-header-container'>

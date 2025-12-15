@@ -77,8 +77,6 @@ export function Table({data, getDataFunc, removeDataFunc}) {
 
     return (
         <div class='table-container'>
-            <button class='table-add-column-button' onClick={addColumn}>+добавить</button>
-
             <div class='table-left-side-container' ref={leftSideContainer}>
                 <div class='table-titles-container'>
                     <div class='table-calendar-title-container'>
@@ -145,7 +143,8 @@ export function Table({data, getDataFunc, removeDataFunc}) {
                     </SortableContext>
                 </DndContext>
             </div>
-        </div>
 
+            <button class='table-add-column-button' onClick={addColumn}>+добавить</button>
+        </div>
     );
 }
