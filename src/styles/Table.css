@@ -35,7 +35,7 @@
 
 .table-calendar-month-name {
     text-align: center;
-    width: 20px;
+    width: 100%;
     writing-mode: vertical-rl; 
     transform: scale(-1, -1);
 }
